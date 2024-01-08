@@ -11,8 +11,8 @@ class Controller
     public function __construct()
     {
         $this->viewPath = __DIR__ . "/../../resources/views";
-        $modelName = str_replace('Controller', '', static::class); // Infer model name from controller class name
-        $tableName = strtolower($modelName) . 's'; // Infer table name from model name
+        $modelName = str_replace('Controller', '', static::class); // model name from controller class name
+        $tableName = strtolower($modelName) . 's'; // table name from model name
         $this->model = new Model($tableName);
     }
 
