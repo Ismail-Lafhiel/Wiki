@@ -1,6 +1,7 @@
 <?php
 namespace App\Routes;
 
+use App\Models\Model;
 use App\Routes\Route;
 
 class Router
@@ -32,7 +33,10 @@ class Router
 
         foreach ($this->routes[$method] as $route) {
             if ($this->matchRoute($route->path, $path)) {
-                call_user_func($route->callable);
+                $callable = $route->callable;
+                $controller = new $callable[0]();
+                $method = $callable[1];
+                $controller->$method();
                 return;
             }
         }
