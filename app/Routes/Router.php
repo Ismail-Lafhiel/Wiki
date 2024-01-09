@@ -1,7 +1,6 @@
 <?php
 namespace App\Routes;
 
-use App\Models\Model;
 use App\Routes\Route;
 
 class Router
@@ -32,22 +31,63 @@ class Router
         $path = parse_url($this->url, PHP_URL_PATH);
 
         foreach ($this->routes[$method] as $route) {
-            if ($this->matchRoute($route->path, $path)) {
+            $matches = [];
+            if ($this->matchRoute($route->path, $path, $matches)) {
                 $callable = $route->callable;
                 $controller = new $callable[0]();
-                $method = $callable[1];
-                $controller->$method();
+                $methodName = $callable[1];
+
+                if ($method === 'POST' && ($methodName === 'update' || $methodName === 'store' || $methodName === 'destroy')) {
+                    // Handle POST requests
+                    $postData = $_POST;
+                    $args = array_merge($matches, [$postData]); // Merge $matches and $postData into a single array
+                    call_user_func_array([$controller, $methodName], $args); // Call the controller method with the merged arguments
+                } else {
+                    // Handle GET requests
+                    call_user_func_array([$controller, $methodName], $matches); // Call the controller method with $matches as arguments
+                }
                 return;
             }
         }
-
-        echo '404 - Not Found';
+        $this->abort(404);
     }
 
-    private function matchRoute($routePath, $requestPath)
+
+
+    private function matchRoute($routePath, $requestPath, &$matches)
     {
         $routePath = rtrim($routePath, '/');
         $requestPath = rtrim($requestPath, '/');
-        return $routePath === $requestPath;
+
+        $routeSegments = explode('/', $routePath);
+        $requestSegments = explode('/', $requestPath);
+
+        if (count($routeSegments) !== count($requestSegments)) {
+            return false;
+        }
+
+        foreach ($routeSegments as $key => $routeSegment) {
+            if (isset($requestSegments[$key])) {
+                if (!empty($routeSegment) && $routeSegment[0] === '{' && strlen($routeSegment) > 1 && $routeSegment[strlen($routeSegment) - 1] === '}') {
+                    $matches[] = $requestSegments[$key];
+                    continue;
+                }
+
+                if ($routeSegment !== $requestSegments[$key]) {
+                    return false;
+                }
+            } else {
+                return false; // Request path segment doesn't exist, so the route doesn't match
+            }
+        }
+
+        return true;
+    }
+
+    private function abort($code = 404)
+    {
+        http_response_code($code);
+        require __DIR__ . "/../../resources/views/{$code}.php";
+        die();
     }
 }

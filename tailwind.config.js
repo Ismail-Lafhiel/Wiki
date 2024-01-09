@@ -1,30 +1,66 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // content: ["./Public/pages/**/*.{html,js,php}"],
-  content: [
-    "./resources/views/*.php",
-    "./js/custom.min.js",
-  ],
+  content: ["./resources/views/users/*.php", "./public/js/script.js", "./node_modules/flowbite/**/*.js", ],
 
   "tailwindCSS.includeLanguages": {
     plaintext: "php",
   },
-
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
   darkMode: "class",
   theme: {
     extend: {
-      fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+      colors: {
+        primary: {
+          50: "#fdf4ff",
+          100: "#fae8ff",
+          200: "#f5d0fe",
+          300: "#f0abfc",
+          400: "#e879f9",
+          500: "#d946ef",
+          600: "#c026d3",
+          700: "#a21caf",
+          800: "#86198f",
+          900: "#701a75",
+          950: "#4a044e",
+        },
       },
-      colors :{
-        'primary' :{
-          100: '#0D4B33',
-          200: '#052519'
-        } ,
-        'orange' : '#FB6109',
-
-      }
+    },
+    fontFamily: {
+      body: [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "system-ui",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+        "Noto Sans",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji",
+      ],
+      sans: [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "system-ui",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+        "Noto Sans",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji",
+      ],
     },
   },
 };

@@ -17,69 +17,63 @@ class UserController extends Controller
         // Use the User to retrieve all users
         $users = $this->user->all();
 
-        return $this->render('users.index', $users);
+        return $this->render('users.index', ['users' => $users]);
     }
 
     public function show($id)
     {
         // Use the User to find a specific user by ID
         $user = $this->user->find($id);
+        // var_dump($user);
 
-
-        return $this->render('users.show', $user);
+        return $this->render('users.show', ['user' => $user]);
     }
+    public function store($data)
+    {
+        $result = $this->user->create($data);
 
+        if ($result) {
+            $response = ['successMessage' => 'User created successfully'];
+        } else {
+            $response = ['errorMessage' => 'Failed to create user'];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+
+    }
     public function edit($id)
     {
         // Use the User to find a specific user by ID
         $user = $this->user->find($id);
 
-        return $this->render('users.edit', $user);
+        return $this->render('users.edit', ['user' => $user]);
     }
-
-    public function store($data)
-    {
-        // Use the User to create a new user
-        $userId = $this->user->create($data);
-
-        if ($userId) {
-            $_SESSION['message'] = "User created successfully";
-        } else {
-            $_SESSION['message'] = "Failed to create user";
-        }
-        header("Location: ".__DIR__."/../../resources/views/users/index.php");
-        exit();
-    }
-
     public function update($id, $data)
     {
-        // Use the User to update a user
-        $affectedRows = $this->user->update($id, $data);
-        
-        if ($affectedRows > 0) {
-            // User update was successful
-            $_SESSION['message'] = "User updated successfully";
+        $result = $this->user->update($id, $data);
+        if ($result) {
+            $response = ['successMessage' => 'User created successfully'];
         } else {
-            // User update failed
-            $_SESSION['message'] = "Failed to update user";
+            $response = ['errorMessage' => 'Failed to create user'];
         }
-        header("Location: ".__DIR__."/../../resources/views/users/index.php");
-        exit();
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
     public function destroy($id)
     {
         // Use the User to delete a user
-        $affectedRows = $this->user->delete($id);
-
-        if ($affectedRows > 0) {
-            // User deletion was successful
-            $_SESSION['message'] = "User deleted successfully";
+        $result = $this->user->delete($id);
+        if ($result) {
+            $response = ['successMessage' => 'User created successfully'];
         } else {
-            // User deletion failed
-            $_SESSION['message'] = "Failed to delete user";
+            $response = ['errorMessage' => 'Failed to create user'];
         }
-        header("Location: ".__DIR__."/../../resources/views/users/index.php");
-        exit();
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+
     }
 }

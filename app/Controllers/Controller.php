@@ -50,4 +50,3 @@ class Controller
         return $this->model->delete($id);
     }
 }
-

@@ -9,7 +9,7 @@ class Model
     protected $table;
     public function __construct($tableName)
     {
-        $this->tableName = $tableName;
+        $this->table = $tableName;
         $this->db = Database::getInstance()->getPdo();
     }
     public function getTableName()
@@ -18,7 +18,9 @@ class Model
     }
     public function all()
     {
-        $stmt = $this->db->query("SELECT * FROM $this->table");
+        $tableName = $this->getTableName();
+        // echo "Table Name: " . $tableName;
+        $stmt = $this->db->query("SELECT * FROM $tableName");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
