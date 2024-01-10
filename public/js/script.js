@@ -555,6 +555,7 @@ function deleteWiki(wikiId) {
 // end Wiki CRUD
 // -------------------------------------------------------------- //
 // start Categories CRUD
+
 function updateCategory() {
   var formElement = document.getElementById("updateCategory");
   var formData = new FormData(formElement);
