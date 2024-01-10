@@ -72,11 +72,19 @@ class Model
     }
     public function belongsTo($relatedModel, $foreign_key)
     {
-        $relatedInstance = new $relatedModel();
-        $relatedRecord = $relatedInstance->find($this->$foreign_key);
-        dump($relatedRecord);
-        return $relatedRecord;
+        $relatedModelInstance = new $relatedModel();
+        $relatedTableName = $relatedModelInstance->getTableName();
+
+        $query = "SELECT * FROM $relatedTableName WHERE id = (SELECT $foreign_key FROM $this->table WHERE id = :id)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['id' => $this->id]);
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
+
+
+
     public function belongsToMany($relatedModel, $pivotTable, $foreignPivotKey, $relatedPivotKey, $id)
     {
         $relatedTableName = (new $relatedModel())->getTableName();

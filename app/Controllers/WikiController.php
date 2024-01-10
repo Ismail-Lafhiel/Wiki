@@ -14,9 +14,9 @@ class WikiController extends Controller
 
     public function index()
     {
-        $wikiModel = new Wiki();
-        $wikis = $wikiModel->all();
-        dump($wikis);
+        $wiki = new Wiki();
+        $wikis = $wiki->allWithUserAndCategory();
+        // dump($wikis);
         return $this->render('wikis.index', ['wikis' => $wikis]);
     }
 

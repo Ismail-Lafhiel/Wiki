@@ -13,27 +13,42 @@ class Wiki extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function category()
     {
         return $this->belongsTo(Categorie::class, 'category_id');
     }
+
     public function tags($id)
     {
         return $this->belongsToMany(Tag::class, 'wikitags', 'wiki_id', 'tag_id', $id);
     }
-    public function all()
+    public function allWithUserAndCategory()
     {
-        $wikis = parent::all();
+        $wikis = $this->all();
 
         foreach ($wikis as &$wiki) {
-            $user = $this->belongsTo(User::class, 'user_id')->find($wiki['user_id']);
-            $category = $this->belongsTo(Categorie::class, 'category_id')->find($wiki['category_id']);
-            $wiki['user_name'] = $user['user_name'];
-            $wiki['category_name'] = $category['category_name'];
+            if (isset($wiki['user_id'])) {
+                $user = new User();
+                $userDetails = $user->find($wiki['user_id']);
+                if ($userDetails) {
+                    $wiki['user_name'] = $userDetails['user_name'];
+                }
+            }
+
+            if (isset($wiki['category_id'])) {
+                $category = new Categorie();
+                $categoryDetails = $category->find($wiki['category_id']);
+                if ($categoryDetails) {
+                    $wiki['category_name'] = $categoryDetails['category_name'];
+                }
+            }
         }
+        unset($wiki);
         dump($wikis);
         return $wikis;
     }
+
     // public function all()
     // {
     //     $wikis = parent::all();
