@@ -37,7 +37,7 @@ include(__DIR__ . "/../layouts/head.php");
                                 <path clip-rule="evenodd" fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
-                            Add user
+                            Add Wiki
                         </button>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
@@ -160,10 +160,10 @@ include(__DIR__ . "/../layouts/head.php");
                                     <td class="px-4 py-3">
                                         <?php echo $wiki['updated_at'] ?>
                                     </td>
-                                    
+
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="user-toggle-<?php echo $wiki['id'] ?>"
-                                            data-dropdown-toggle="user-<?php echo $wiki['id'] ?>-dropdown"
+                                        <button id="wiki-toggle-<?php echo $wiki['id'] ?>"
+                                            data-dropdown-toggle="wiki-<?php echo $wiki['id'] ?>-dropdown"
                                             class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                             type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -172,16 +172,16 @@ include(__DIR__ . "/../layouts/head.php");
                                                     d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </button>
-                                        <div id="user-<?php echo $wiki['id'] ?>-dropdown"
+                                        <div id="wiki-<?php echo $wiki['id'] ?>-dropdown"
                                             class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="user-toggle-<?php echo $wiki['id'] ?>">
+                                                aria-labelledby="wiki-toggle-<?php echo $wiki['id'] ?>">
                                                 <li>
-                                                    <a href="/users/show/<?php echo $wiki['id'] ?>"
+                                                    <a href="/wikis/show/<?php echo $wiki['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/users/edit/<?php echo $wiki['id'] ?>"
+                                                    <a href="/wikis/edit/<?php echo $wiki['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
@@ -204,82 +204,63 @@ include(__DIR__ . "/../layouts/head.php");
         <!-- Create Modal -->
         <div id="addModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-            <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <!-- Modal content -->
-                <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <div
+                    class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div id="alertMessage">
                     </div>
-                    <!-- Modal header -->
-                    <div
-                        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Add User
-                        </h3>
-                        <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-toggle="addModal">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
-                    <form id="createUser">
-                        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1
+                            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                            Update User
+                        </h1>
+                        <form class="space-y-4 md:space-y-6" id="createWikis">
                             <div>
-                                <label for="user_name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
-                                    name</label>
-                                <input type="user_name" id="user_name" name="user_name"
+                                <label for="title"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Title</label>
+                                <input type="title" id="title" name="title"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                                     placeholder="Alan Walker" required>
                             </div>
                             <div>
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Email</label>
-                                <input type="email" id="email" name="email"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                                    placeholder="name@example.com" required>
-                            </div>
-                            <div>
-                                <label for="password"
+                                <label for="message"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    password</label>
-                                <input type="password" id="password" name="password"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                                    placeholder="name@example.com" required>
+                                    message</label>
+                                <textarea id="message" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Your content..."></textarea>
                             </div>
                             <div>
-                                <label for="role"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select user
-                                    role</label>
-                                <select id="role" name="role"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <?php
-                                    $roles = [0 => "Admin",];
-                                    foreach ($roles as $value => $label) {
-                                        $selected = ($wiki['role'] == $value) ? "selected" : "";
-                                        echo "<option value='{$value}' $selected>$label</option>";
-                                    }
-                                    ?>
-                                </select>
+                                <label for="category_name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Category</label>
+                                <input type="text" id="category_name" name="category_name"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                                    placeholder="Alan Walker" required>
                             </div>
-                        </div>
-                        <button type="button" onclick="createUser()"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Add new user
-                        </button>
-                    </form>
+                            <div>
+                                <label for="user_name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Author</label>
+                                <input type="text" id="user_name" name="user_name"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                                    placeholder="Alan Walker" required>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    for="user_avatar">Upload file</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="user_avatar_help" id="img_path" name="img_path" type="file">
+                                <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Post
+                                    picture is useful to give an overview on your article</div>
+                            </div>
+
+                            <button type="button" onclick="createWiki()"
+                                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

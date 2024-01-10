@@ -1,6 +1,7 @@
 <?php
 require './vendor/autoload.php';
 
+use App\Controllers\CategorieController;
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\WikiController;
@@ -13,7 +14,6 @@ $router->get('/signin', [HomeController::class, 'signin']);
 $router->get('/signup', [HomeController::class, 'signup']);
 
 //user routes
-
 $router->get('/users', [UserController::class, 'index']); // Read all users
 $router->get('/users/show/{id}', [UserController::class, 'show']); // Read a specific user
 $router->get('/users/create', [UserController::class, 'create']); // Show create user form
@@ -23,14 +23,22 @@ $router->post('/users/update/{id}', [UserController::class, 'update']); // Updat
 $router->post('/users/delete/{id}', [UserController::class, 'destroy']); // Delete a user
 
 //wikis routes
-
 $router->get('/wikis', [WikiController::class, 'index']); // Read all wikis
-$router->get('/wikis/show/{id}', [WikiController::class, 'show']); // Read a specific user
-$router->get('/wikis/create', [WikiController::class, 'create']); // Show create user form
-$router->post('/wikis/store', [WikiController::class, 'store']); // Store a new user
-$router->get('/wikis/edit/{id}', [WikiController::class, 'edit']); // Show edit user form
-$router->post('/wikis/update/{id}', [WikiController::class, 'update']); // Update a user
-$router->post('/wikis/delete/{id}', [WikiController::class, 'destroy']); // Delete a user
+$router->get('/wikis/show/{id}', [WikiController::class, 'show']); // Read a specific wiki
+$router->get('/wikis/create', [WikiController::class, 'create']); // Show create wiki form
+$router->post('/wikis/store', [WikiController::class, 'store']); // Store a new wiki
+$router->get('/wikis/edit/{id}', [WikiController::class, 'edit']); // Show edit wiki form
+$router->post('/wikis/update/{id}', [WikiController::class, 'update']); // Update a wiki
+$router->post('/wikis/delete/{id}', [WikiController::class, 'destroy']); // Delete a wiki
+
+//categories routes
+$router->get('/categories', [CategorieController::class, 'index']); // Read all categories
+$router->get('/categories/show/{id}', [CategorieController::class, 'show']); // Read a specific category
+$router->get('/categories/create', [CategorieController::class, 'create']); // Show create category form
+$router->post('/categories/store', [CategorieController::class, 'store']); // Store a new category
+$router->get('/categories/edit/{id}', [CategorieController::class, 'edit']); // Show edit category form
+$router->post('/categories/update/{id}', [CategorieController::class, 'update']); // Update a category
+$router->post('/categories/delete/{id}', [CategorieController::class, 'destroy']); // Delete a category
 
 
 $router->run();

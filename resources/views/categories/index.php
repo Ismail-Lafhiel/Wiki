@@ -37,7 +37,7 @@ include(__DIR__ . "/../layouts/head.php");
                                 <path clip-rule="evenodd" fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
-                            Add user
+                            Add category
                         </button>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
@@ -125,36 +125,31 @@ include(__DIR__ . "/../layouts/head.php");
                             <tr>
                                 <th scope="col" class="px-4 py-3">Id</th>
                                 <th scope="col" class="px-4 py-3">Name</th>
-                                <th scope="col" class="px-4 py-3">Email</th>
-                                <th scope="col" class="px-4 py-3">Role</th>
-                                <th scope="col" class="px-4 py-3">
+                                <th scope="col" class="px-4 py-3">created at</th>
+                                <th scope="col" class="px-4 py-3">updated at</th>
                                     <span class="sr-only">Actions</span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $user): ?>
+                            <?php foreach ($categories as $category): ?>
                                 <tr class="border-b dark:border-gray-700">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <?php echo $user['id'] ?>
+                                        <?php echo $category['id'] ?>
                                     </th>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['user_name'] ?>
+                                        <?php echo $category['category_name'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['email'] ?>
+                                        <?php echo $category['created_at'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php if ($user['role'] == 1) {
-                                            echo "Author";
-                                        } else if ($user['role'] == 0) {
-                                            echo "Admin";
-                                        } ?>
+                                        <?php echo $category['updated_at'] ?>
                                     </td>
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="user-toggle-<?php echo $user['id'] ?>"
-                                            data-dropdown-toggle="user-<?php echo $user['id'] ?>-dropdown"
+                                        <button id="category-toggle-<?php echo $category['id'] ?>"
+                                            data-dropdown-toggle="category-<?php echo $category['id'] ?>-dropdown"
                                             class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                             type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -163,16 +158,16 @@ include(__DIR__ . "/../layouts/head.php");
                                                     d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </button>
-                                        <div id="user-<?php echo $user['id'] ?>-dropdown"
+                                        <div id="category-<?php echo $category['id'] ?>-dropdown"
                                             class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="user-toggle-<?php echo $user['id'] ?>">
+                                                aria-labelledby="category-toggle-<?php echo $category['id'] ?>">
                                                 <li>
-                                                    <a href="/users/show/<?php echo $user['id'] ?>"
+                                                    <a href="/categories/show/<?php echo $category['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/users/edit/<?php echo $user['id'] ?>"
+                                                    <a href="/categories/edit/<?php echo $category['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
@@ -204,7 +199,7 @@ include(__DIR__ . "/../layouts/head.php");
                     <div
                         class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Add User
+                            Add Category
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -219,48 +214,18 @@ include(__DIR__ . "/../layouts/head.php");
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form id="createUser">
+                    <form id="createCategory">
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
-                                <label for="user_name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
+                                <label for="category_name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category
                                     name</label>
-                                <input type="user_name" id="user_name" name="user_name"
+                                <input type="category_name" id="category_name" name="category_name"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                                     placeholder="Alan Walker" required>
                             </div>
-                            <div>
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Email</label>
-                                <input type="email" id="email" name="email"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                                    placeholder="name@example.com" required>
-                            </div>
-                            <div>
-                                <label for="password"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    password</label>
-                                <input type="password" id="password" name="password"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                                    placeholder="name@example.com" required>
-                            </div>
-                            <div>
-                                <label for="role"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select user
-                                    role</label>
-                                <select id="role" name="role"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <?php
-                                    $roles = [0 => "Admin",];
-                                    foreach ($roles as $value => $label) {
-                                        $selected = ($user['role'] == $value) ? "selected" : "";
-                                        echo "<option value='{$value}' $selected>$label</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                         </div>
-                        <button type="button" onclick="createUser()"
+                        <button type="button" onclick="createCategory()"
                             class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                             <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -268,7 +233,7 @@ include(__DIR__ . "/../layouts/head.php");
                                     d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Add new user
+                            Add new category
                         </button>
                     </form>
                 </div>
@@ -303,7 +268,7 @@ include(__DIR__ . "/../layouts/head.php");
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                             No, cancel
                         </button>
-                        <button type="button" onclick="deleteUser(<?php echo $user['id'] ?>)"
+                        <button type="button" onclick="deleteUser(<?php echo $category['id'] ?>)"
                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                             Yes, I'm sure
                         </button>

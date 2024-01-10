@@ -9,7 +9,7 @@ class CategorieController extends Controller
 
     public function __construct()
     {
-        $this->wiki = new Categorie();
+        $this->category = new Categorie();
     }
 
     public function index()

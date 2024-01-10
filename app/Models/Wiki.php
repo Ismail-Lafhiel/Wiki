@@ -45,22 +45,6 @@ class Wiki extends Model
             }
         }
         unset($wiki);
-        dump($wikis);
         return $wikis;
     }
-
-    // public function all()
-    // {
-    //     $wikis = parent::all();
-
-    //     foreach ($wikis as &$wiki) {
-    //         $user = (new User())->find($wiki['user_id']);
-    //         $category = (new Categorie())->find($wiki['category_id']);
-
-    //         $wiki['user_name'] = $user['user_name'];
-    //         $wiki['category_name'] = $category['category_name'];
-    //     }
-
-    //     return $wikis;
-    // }
 }
