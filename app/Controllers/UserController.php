@@ -14,7 +14,6 @@ class UserController extends Controller
 
     public function index()
     {
-        // Use the User to retrieve all users
         $users = $this->user->all();
 
         return $this->render('users.index', ['users' => $users]);
@@ -22,7 +21,6 @@ class UserController extends Controller
 
     public function show($id)
     {
-        // Use the User to find a specific user by ID
         $user = $this->user->find($id);
         // var_dump($user);
 
@@ -44,7 +42,6 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        // Use the User to find a specific user by ID
         $user = $this->user->find($id);
 
         return $this->render('users.edit', ['user' => $user]);
@@ -53,9 +50,9 @@ class UserController extends Controller
     {
         $result = $this->user->update($id, $data);
         if ($result) {
-            $response = ['successMessage' => 'User created successfully'];
+            $response = ['successMessage' => 'User updated successfully'];
         } else {
-            $response = ['errorMessage' => 'Failed to create user'];
+            $response = ['errorMessage' => 'Failed to update user'];
         }
 
         header('Content-Type: application/json');
@@ -64,12 +61,11 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        // Use the User to delete a user
         $result = $this->user->delete($id);
         if ($result) {
-            $response = ['successMessage' => 'User created successfully'];
+            $response = ['successMessage' => 'User deleted successfully'];
         } else {
-            $response = ['errorMessage' => 'Failed to create user'];
+            $response = ['errorMessage' => 'Failed to delete user'];
         }
 
         header('Content-Type: application/json');

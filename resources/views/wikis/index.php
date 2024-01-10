@@ -124,9 +124,10 @@ include(__DIR__ . "/../layouts/head.php");
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Id</th>
-                                <th scope="col" class="px-4 py-3">Name</th>
-                                <th scope="col" class="px-4 py-3">Email</th>
-                                <th scope="col" class="px-4 py-3">Role</th>
+                                <th scope="col" class="px-4 py-3">title</th>
+                                <th scope="col" class="px-4 py-3">content</th>
+                                <th scope="col" class="px-4 py-3">Category</th>
+                                <th scope="col" class="px-4 py-3">Author</th>
                                 <th scope="col" class="px-4 py-3">created at</th>
                                 <th scope="col" class="px-4 py-3">updated at</th>
                                 <th scope="col" class="px-4 py-3">
@@ -135,34 +136,34 @@ include(__DIR__ . "/../layouts/head.php");
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $user): ?>
+                            <?php foreach ($wikis as $wiki): ?>
                                 <tr class="border-b dark:border-gray-700">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <?php echo $user['id'] ?>
+                                        <?php echo $wiki['id'] ?>
                                     </th>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['user_name'] ?>
+                                        <?php echo $wiki['title'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['email'] ?>
+                                        <?php echo $wiki['content'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php if ($user['role'] == 1) {
-                                            echo "Author";
-                                        } else if ($user['role'] == 0) {
-                                            echo "Admin";
-                                        } ?>
+                                        <?php echo $wiki['category_name'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['created_at'] ?>
+                                        <?php echo $wiki['user_name'] ?>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <?php echo $user['updated_at'] ?>
+                                        <?php echo $wiki['created_at'] ?>
                                     </td>
+                                    <td class="px-4 py-3">
+                                        <?php echo $wiki['updated_at'] ?>
+                                    </td>
+                                    
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="user-toggle-<?php echo $user['id'] ?>"
-                                            data-dropdown-toggle="user-<?php echo $user['id'] ?>-dropdown"
+                                        <button id="user-toggle-<?php echo $wiki['id'] ?>"
+                                            data-dropdown-toggle="user-<?php echo $wiki['id'] ?>-dropdown"
                                             class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                             type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -171,16 +172,16 @@ include(__DIR__ . "/../layouts/head.php");
                                                     d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </button>
-                                        <div id="user-<?php echo $user['id'] ?>-dropdown"
+                                        <div id="user-<?php echo $wiki['id'] ?>-dropdown"
                                             class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="user-toggle-<?php echo $user['id'] ?>">
+                                                aria-labelledby="user-toggle-<?php echo $wiki['id'] ?>">
                                                 <li>
-                                                    <a href="/users/show/<?php echo $user['id'] ?>"
+                                                    <a href="/users/show/<?php echo $wiki['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/users/edit/<?php echo $user['id'] ?>"
+                                                    <a href="/users/edit/<?php echo $wiki['id'] ?>"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
@@ -261,7 +262,7 @@ include(__DIR__ . "/../layouts/head.php");
                                     <?php
                                     $roles = [0 => "Admin",];
                                     foreach ($roles as $value => $label) {
-                                        $selected = ($user['role'] == $value) ? "selected" : "";
+                                        $selected = ($wiki['role'] == $value) ? "selected" : "";
                                         echo "<option value='{$value}' $selected>$label</option>";
                                     }
                                     ?>
@@ -311,7 +312,7 @@ include(__DIR__ . "/../layouts/head.php");
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                             No, cancel
                         </button>
-                        <button type="button" onclick="deleteUser(<?php echo $user['id'] ?>)"
+                        <button type="button" onclick="deleteUser(<?php echo $wiki['id'] ?>)"
                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                             Yes, I'm sure
                         </button>

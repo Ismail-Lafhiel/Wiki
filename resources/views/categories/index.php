@@ -127,8 +127,6 @@ include(__DIR__ . "/../layouts/head.php");
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Email</th>
                                 <th scope="col" class="px-4 py-3">Role</th>
-                                <th scope="col" class="px-4 py-3">created at</th>
-                                <th scope="col" class="px-4 py-3">updated at</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
@@ -153,12 +151,6 @@ include(__DIR__ . "/../layouts/head.php");
                                         } else if ($user['role'] == 0) {
                                             echo "Admin";
                                         } ?>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <?php echo $user['created_at'] ?>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <?php echo $user['updated_at'] ?>
                                     </td>
                                     <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="user-toggle-<?php echo $user['id'] ?>"

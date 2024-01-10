@@ -19,7 +19,6 @@ class Model
     public function all()
     {
         $tableName = $this->getTableName();
-        // echo "Table Name: " . $tableName;
         $stmt = $this->db->query("SELECT * FROM $tableName");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -73,13 +72,10 @@ class Model
     }
     public function belongsTo($relatedModel, $foreign_key)
     {
-        $relatedTableName = (new $relatedModel())->getTableName();
-
-        $query = "SELECT * FROM $relatedTableName WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute(['id' => $this->$foreign_key]);
-
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $relatedInstance = new $relatedModel();
+        $relatedRecord = $relatedInstance->find($this->$foreign_key);
+        dump($relatedRecord);
+        return $relatedRecord;
     }
     public function belongsToMany($relatedModel, $pivotTable, $foreignPivotKey, $relatedPivotKey, $id)
     {
@@ -96,5 +92,4 @@ class Model
 
         return $results;
     }
-
 }
