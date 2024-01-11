@@ -91,6 +91,11 @@ class WikiController extends Controller
 
         header('Content-Type: application/json');
         echo json_encode($response);
+        
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $imageName = time() . '.' . $_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], 'public/assets/wiki_uploads/' . $imageName);
+        }
     }
 
     public function destroy($id)

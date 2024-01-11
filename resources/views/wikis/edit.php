@@ -3,10 +3,10 @@ include(__DIR__ . "/../layouts/head.php");
 ?>
 
 <body>
-    <section class="bg-gray-50 dark:bg-gray-900" style="margin: 160px 0 0 0;">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <div
-                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                class="md:w-1/2 bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div id="alertMessage">
                 </div>
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -14,7 +14,7 @@ include(__DIR__ . "/../layouts/head.php");
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Update User
                     </h1>
-                    <form class="space-y-4 md:space-y-6" id="editWikis">
+                    <form class="space-y-4 md:space-y-6" id="editWiki" enctype="multipart/form-data">
                         <input type="hidden" id="id" name="id" value="<?php echo $wiki['id']; ?>">
                         <div>
                             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
@@ -24,11 +24,12 @@ include(__DIR__ . "/../layouts/head.php");
                                 placeholder="Alan Walker" required>
                         </div>
                         <div>
-                            <label for="message"
+                            <label for="content"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
-                                message</label>
-                            <textarea id="mytextarea"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"><?php echo $wiki["content"] ?></textarea>
+                                content</label>
+                            <textarea id="content" name="content" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Your content..."><?php echo $wiki["content"] ?></textarea>
                         </div>
                         <div>
                             <label for="category_name"
@@ -37,7 +38,7 @@ include(__DIR__ . "/../layouts/head.php");
                             <input type="text" id="category_name" name="category_name"
                                 value="<?php echo $wiki["category_name"] ?>"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                                placeholder="Alan Walker" required>
+                                placeholder="IT" required>
                         </div>
                         <div>
                             <label for="user_name"
@@ -48,13 +49,20 @@ include(__DIR__ . "/../layouts/head.php");
                                 placeholder="Alan Walker" required>
                         </div>
                         <div>
+                            <label for="tegs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                                tags</label>
+                                <input type="text" id="tagInput" placeholder="Enter tags and press enter"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light">
+                                <div id="tagContainer" class="mt-5 flex flex-wrap gap-2 items-center"></div>
+                        </div>
+                        <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 for="user_avatar">Upload file</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="user_avatar_help" id="img_path" name="img_path" type="file"
                                 value="<?php echo $wiki["img_path"] ?>">
-                            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Post
+                            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300">Post
                                 picture is useful to give an overview on your article</div>
                         </div>
 

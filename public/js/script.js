@@ -231,7 +231,7 @@ function deleteWiki(wikiId) {
     .addEventListener("click", function () {
       var formElement = document.getElementById("deleteWiki");
       var formData = new FormData(formElement);
-      var wikiId = getUserIdFromButton(); 
+      var wikiId = getUserIdFromButton();
       console.log("Delete wikis function called with wiki ID:", wikiId);
       $.ajax({
         url: "/wikis/delete/" + wikiId,
@@ -370,7 +370,7 @@ function deleteTag(tagId) {
     .addEventListener("click", function () {
       var formElement = document.getElementById("deleteTag");
       var formData = new FormData(formElement);
-      var tagId = getUserIdFromButton(); 
+      var tagId = getUserIdFromButton();
       console.log("Delete tags function called with wiki ID:", tagId);
       $.ajax({
         url: "/tags/delete/" + tagId,
@@ -509,7 +509,7 @@ function deleteWiki(wikiId) {
     .addEventListener("click", function () {
       var formElement = document.getElementById("deleteWiki");
       var formData = new FormData(formElement);
-      var wikiId = getUserIdFromButton(); 
+      var wikiId = getUserIdFromButton();
       console.log("Delete wikis function called with wiki ID:", wikiId);
       $.ajax({
         url: "/wikis/delete/" + wikiId,
@@ -648,8 +648,11 @@ function deleteCategory(categoryId) {
     .addEventListener("click", function () {
       var formElement = document.getElementById("deleteCategory");
       var formData = new FormData(formElement);
-      var categoryId = getUserIdFromButton(); 
-      console.log("Delete Categories function called with wiki ID:", categoryId);
+      var categoryId = getUserIdFromButton();
+      console.log(
+        "Delete Categories function called with wiki ID:",
+        categoryId
+      );
       $.ajax({
         url: "/categories/delete/" + categoryId,
         type: "POST",
@@ -695,3 +698,27 @@ function deleteCategory(categoryId) {
 // document.addEventListener("DOMContentLoaded", function (event) {
 //   document.getElementById("defaultModalButton").click();
 // });
+
+// select multiple tags
+document.getElementById("tagInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    var tag = this.value.trim();
+    if (tag) {
+      var tagElement = document.createElement("span");
+      tagElement.className =
+        "inline-block bg-primary-600 px-2 py-1 text-white text-sm rounded-lg";
+      tagElement.textContent = tag;
+
+      var closeIcon = document.createElement("a");
+      closeIcon.innerHTML = "&times;";
+      closeIcon.className = "ml-2 cursor-poiter text-red-600";
+      closeIcon.addEventListener("click", function () {
+        tagElement.remove();
+      });
+
+      tagElement.appendChild(closeIcon);
+      document.getElementById("tagContainer").appendChild(tagElement);
+      this.value = "";
+    }
+  }
+});
