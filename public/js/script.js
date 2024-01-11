@@ -560,7 +560,6 @@ function updateCategory() {
   var formElement = document.getElementById("updateCategory");
   var formData = new FormData(formElement);
   var categoryId = $("#id").val();
-
   $.ajax({
     url: "/categories/update/" + categoryId,
     type: "POST",

@@ -3,6 +3,7 @@ require './vendor/autoload.php';
 
 use App\Controllers\CategorieController;
 use App\Controllers\HomeController;
+use App\Controllers\TagController;
 use App\Controllers\UserController;
 use App\Controllers\WikiController;
 use App\Routes\Router;
@@ -33,12 +34,17 @@ $router->post('/wikis/delete/{id}', [WikiController::class, 'destroy']); // Dele
 
 //categories routes
 $router->get('/categories', [CategorieController::class, 'index']); // Read all categories
-$router->get('/categories/show/{id}', [CategorieController::class, 'show']); // Read a specific category
 $router->get('/categories/create', [CategorieController::class, 'create']); // Show create category form
 $router->post('/categories/store', [CategorieController::class, 'store']); // Store a new category
 $router->get('/categories/edit/{id}', [CategorieController::class, 'edit']); // Show edit category form
 $router->post('/categories/update/{id}', [CategorieController::class, 'update']); // Update a category
 $router->post('/categories/delete/{id}', [CategorieController::class, 'destroy']); // Delete a category
+
+//tags routes
+$router->get('/tags', [TagController::class, 'index']); // Read all tags
+$router->get('/tags/edit/', [TagController::class, 'edit']); // Show edit tag form
+$router->post('/tags/update/{id}', [TagController::class, 'update']); // Update a tag
+$router->post('/tags/delete/{id}', [TagController::class, 'destroy']); // Delete a tag
 
 
 $router->run();
