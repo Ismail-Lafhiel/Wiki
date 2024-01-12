@@ -2,7 +2,6 @@
 include(__DIR__ . "/../layouts/head.php");
 ?>
 
-<body>
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <div
@@ -51,9 +50,9 @@ include(__DIR__ . "/../layouts/head.php");
                         <div>
                             <label for="tegs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
                                 tags</label>
-                                <input type="text" id="tagInput" placeholder="Enter tags and press enter"
+                            <input type="text" id="tagInput" placeholder="Enter tags and press enter"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light">
-                                <div id="tagContainer" class="mt-5 flex flex-wrap gap-2 items-center"></div>
+                            <div id="tagContainer" class="mt-5 flex flex-wrap gap-2 items-center"></div>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -73,7 +72,6 @@ include(__DIR__ . "/../layouts/head.php");
             </div>
         </div>
     </section>
-</body>
-<?php
-include(__DIR__ . "/../layouts/footer.php");
-?>
+    <?php
+    include(__DIR__ . "/../layouts/footer.php");
+    ?>

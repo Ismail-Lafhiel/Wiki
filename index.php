@@ -1,6 +1,7 @@
 <?php
 require './vendor/autoload.php';
 
+use App\Controllers\AuthController;
 use App\Controllers\CategorieController;
 use App\Controllers\HomeController;
 use App\Controllers\TagController;
@@ -10,9 +11,12 @@ use App\Routes\Router;
 
 $router = new Router($_SERVER['REQUEST_URI']);
 
+// home routes 
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/signin', [HomeController::class, 'signin']);
-$router->get('/signup', [HomeController::class, 'signup']);
+$router->get('/wikis/show-all', [HomeController::class, 'wikis']);
+// home routes 
+$router->get('/signin', [AuthController::class, 'signin']);
+$router->get('/signup', [AuthController::class, 'signup']);
 
 //user routes
 $router->get('/users', [UserController::class, 'index']); // Read all users
