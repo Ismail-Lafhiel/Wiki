@@ -82,10 +82,10 @@ include(__DIR__ . "/../layouts/head.php");
                                     <?php echo $category['category_name'] ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $category['created_at'] ?>
+                                    <?php echo \Carbon\Carbon::parse($category['created_at'])->diffForHumans();  ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $category['updated_at'] ?>
+                                    <?php echo \Carbon\Carbon::parse($category['updated_at'])->diffForHumans(); ?>
                                 </td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <button id="category-toggle-<?php echo $category['id'] ?>"

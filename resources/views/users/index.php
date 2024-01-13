@@ -95,10 +95,10 @@ include(__DIR__ . "/../layouts/head.php");
                                     } ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $user['created_at'] ?>
+                                    <?php echo \Carbon\Carbon::parse($user['created_at'])->diffForHumans();  ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $user['updated_at'] ?>
+                                    <?php echo \Carbon\Carbon::parse($user['updated_at'])->diffForHumans();  ?>
                                 </td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <button id="user-toggle-<?php echo $user['id'] ?>"

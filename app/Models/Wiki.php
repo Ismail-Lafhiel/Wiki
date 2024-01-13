@@ -9,42 +9,55 @@ class Wiki extends Model
     {
         parent::__construct('wikis');
     }
-    public function user()
+    public function user($id)
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', $id);
     }
 
-    public function category()
+    public function category($id)
     {
-        return $this->belongsTo(Categorie::class, 'category_id');
+        return $this->belongsTo(Categorie::class, 'category_id', $id);
     }
 
     public function tags($id)
     {
         return $this->belongsToMany(Tag::class, 'wikitags', 'wiki_id', 'tag_id', $id);
     }
-    public function allWithUserAndCategory()
+    public function getAllUsers()
+    {
+        return (new User())->all();
+    }
+
+    public function getAllCategories()
+    {
+        return (new Categorie())->all();
+    }
+
+    public function getAllTags()
+    {
+        return (new Tag())->all();
+    }
+    public function allWithUserCategoryAndTags()
     {
         $wikis = $this->all();
 
         foreach ($wikis as &$wiki) {
-            if (isset($wiki['user_id'])) {
-                $user = new User();
-                $userDetails = $user->find($wiki['user_id']);
-                if ($userDetails) {
-                    $wiki['user_name'] = $userDetails['user_name'];
-                }
-            }
+            $user = (new User())->find($wiki['user_id']);
+            $wiki['users'] = $user;
 
-            if (isset($wiki['category_id'])) {
-                $category = new Categorie();
-                $categoryDetails = $category->find($wiki['category_id']);
-                if ($categoryDetails) {
-                    $wiki['category_name'] = $categoryDetails['category_name'];
-                }
-            }
+            $category = (new Categorie())->find($wiki['category_id']);
+            $wiki['categories'] = $category;
+
+            $tags = $this->tags($wiki['id']);
+            $wiki['tags'] = $tags;
         }
-        unset($wiki);
         return $wikis;
     }
+    public function getTagsForWiki($wikiId)
+    {
+        $tags = $this->tags($wikiId);
+        return $tags;
+    }
+
+
 }

@@ -11,4 +11,6 @@ class Tag extends Model
     {
         return $this->belongsToMany(Wiki::class, 'wikitags', 'tag_id', 'wiki_id', $id);
     }
+
+
 }

@@ -57,8 +57,6 @@ class Model
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount();
     }
-
-
     // relationship methods
     public function hasMany($relatedModel, $foreign_key, $id)
     {
@@ -70,28 +68,26 @@ class Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    public function belongsTo($relatedModel, $foreign_key)
+    public function belongsTo($relatedModel, $foreign_key, $id)
     {
         $relatedModelInstance = new $relatedModel();
         $relatedTableName = $relatedModelInstance->getTableName();
 
         $query = "SELECT * FROM $relatedTableName WHERE id = (SELECT $foreign_key FROM $this->table WHERE id = :id)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute(['id' => $this->id]);
+        $stmt->execute(['id' => $id]);
 
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
-
-
-
     public function belongsToMany($relatedModel, $pivotTable, $foreignPivotKey, $relatedPivotKey, $id)
     {
         $relatedTableName = (new $relatedModel())->getTableName();
 
         $query = "SELECT $relatedTableName.* FROM $relatedTableName
-              JOIN $pivotTable ON $relatedTableName.id = $pivotTable.$relatedPivotKey
-              WHERE $pivotTable.$foreignPivotKey = :id";
+        JOIN $pivotTable ON $relatedTableName.id = $pivotTable.$relatedPivotKey
+        WHERE $pivotTable.$foreignPivotKey = :id";
+        ;
 
         $stmt = $this->db->prepare($query);
         $stmt->execute(['id' => $id]);

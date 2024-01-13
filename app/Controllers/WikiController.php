@@ -13,35 +13,37 @@ class WikiController extends Controller
     {
         $this->wiki = new Wiki();
     }
-
     public function index()
     {
-        $wiki = new Wiki();
-        $wikis = $wiki->allWithUserAndCategory();
+        $wikis = $this->wiki->allWithUserCategoryAndTags();
         // dump($wikis);
         return $this->render('wikis.index', ['wikis' => $wikis]);
     }
-
     public function show($id)
     {
         $wiki = $this->wiki->find($id);
-        if (isset($wiki['user_id'])) {
-            $user = new User();
-            $userDetails = $user->find($wiki['user_id']);
-            if ($userDetails) {
-                $wiki['user_name'] = $userDetails['user_name'];
-            }
-        }
+        $user = (new User())->find($wiki['user_id']);
+        $wiki['user_name'] = $user['user_name'];
+        $wiki['role'] = $user['role'];
 
-        if (isset($wiki['category_id'])) {
-            $category = new Categorie();
-            $categoryDetails = $category->find($wiki['category_id']);
-            if ($categoryDetails) {
-                $wiki['category_name'] = $categoryDetails['category_name'];
-            }
-        }
+        $category = (new Categorie())->find($wiki['category_id']);
+        $wiki['category_name'] = $category['category_name'];
+
+        $tags = $this->wiki->getTagsForWiki($id);
+
+        $wiki['tags'] = $tags;
+        dump($wiki);
 
         return $this->render('wikis.show', ['wiki' => $wiki]);
+    }
+
+    public function add()
+    {
+        $users = $this->wiki->getAllUsers();
+        $categories = $this->wiki->getAllCategories();
+        $tags = $this->wiki->getAllTags();
+        dump($users, $categories, $tags);
+        return $this->render('wikis.create', ['users' => $users, 'categories' => $categories, 'tags' => $tags]);
     }
 
     public function store($data)
@@ -53,7 +55,13 @@ class WikiController extends Controller
         } else {
             $response = ['errorMessage' => 'Failed to create wiki'];
         }
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $imageName = time() . '.' . $_FILES['image']['name'];
+            $img_path = 'public/assets/wiki_uploads/' . $imageName;
+            move_uploaded_file($_FILES['image']['tmp_name'], $img_path);
 
+            $data['image_path'] = $img_path;
+        }
         header('Content-Type: application/json');
         echo json_encode($response);
     }
@@ -61,21 +69,11 @@ class WikiController extends Controller
     public function edit($id)
     {
         $wiki = $this->wiki->find($id);
-        if (isset($wiki['user_id'])) {
-            $user = new User();
-            $userDetails = $user->find($wiki['user_id']);
-            if ($userDetails) {
-                $wiki['user_name'] = $userDetails['user_name'];
-            }
-        }
+        $user = (new User())->find($wiki['user_id']);
+        $wiki['user_name'] = $user['user_name'];
 
-        if (isset($wiki['category_id'])) {
-            $category = new Categorie();
-            $categoryDetails = $category->find($wiki['category_id']);
-            if ($categoryDetails) {
-                $wiki['category_name'] = $categoryDetails['category_name'];
-            }
-        }
+        $category = (new Categorie())->find($wiki['category_id']);
+        $wiki['category_name'] = $category['category_name'];
 
         return $this->render('wikis.edit', ['wiki' => $wiki]);
     }
@@ -88,14 +86,17 @@ class WikiController extends Controller
         } else {
             $response = ['errorMessage' => 'Failed to update wiki'];
         }
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $imageName = time() . '.' . $_FILES['image']['name'];
+            $img_path = 'public/assets/wiki_uploads/' . $imageName;
+            move_uploaded_file($_FILES['image']['tmp_name'], $img_path);
+
+            $data['image_path'] = $img_path;
+        }
 
         header('Content-Type: application/json');
         echo json_encode($response);
-        
-        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $imageName = time() . '.' . $_FILES['image']['name'];
-            move_uploaded_file($_FILES['image']['tmp_name'], 'public/assets/wiki_uploads/' . $imageName);
-        }
+
     }
 
     public function destroy($id)
@@ -110,5 +111,6 @@ class WikiController extends Controller
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+
 
 }

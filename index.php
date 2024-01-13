@@ -1,5 +1,6 @@
 <?php
 require './vendor/autoload.php';
+session_start();
 
 use App\Controllers\AuthController;
 use App\Controllers\CategorieController;
@@ -17,6 +18,9 @@ $router->get('/wikis/show-all', [HomeController::class, 'wikis']);
 // home routes 
 $router->get('/signin', [AuthController::class, 'signin']);
 $router->get('/signup', [AuthController::class, 'signup']);
+$router->post('/register', [AuthController::class, 'register']);
+$router->post('/authenticate', [AuthController::class, 'authenticate']);
+$router->get('/logout', [AuthController::class, 'logout']);
 
 //user routes
 $router->get('/users', [UserController::class, 'index']); // Read all users
@@ -30,7 +34,7 @@ $router->post('/users/delete/{id}', [UserController::class, 'destroy']); // Dele
 //wikis routes
 $router->get('/wikis', [WikiController::class, 'index']); // Read all wikis
 $router->get('/wikis/show/{id}', [WikiController::class, 'show']); // Read a specific wiki
-$router->get('/wikis/create', [WikiController::class, 'create']); // Show create wiki form
+$router->get('/wikis/create', [WikiController::class, 'add']); // Show create wiki form
 $router->post('/wikis/store', [WikiController::class, 'store']); // Store a new wiki
 $router->get('/wikis/edit/{id}', [WikiController::class, 'edit']); // Show edit wiki form
 $router->post('/wikis/update/{id}', [WikiController::class, 'update']); // Update a wiki

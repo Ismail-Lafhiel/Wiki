@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // content: ["./Public/pages/**/*.{html,js,php}"],
-  content: ["./resources/views/*.php", "./resources/views/users/*.php", "./resources/views/wikis/*.php", "./resources/views/tags/*.php", "./resources/views/categories/*.php", "./public/js/script.js", "./node_modules/flowbite/**/*.js", ],
+  content: ["./resources/views/*.php", "./resources/views/users/*.php", "./resources/views/wikis/*.php", "./resources/views/tags/*.php","./resources/views/layouts/*.php", "./resources/views/categories/*.php", "./public/js/script.js", "./node_modules/flowbite/**/*.js", ],
 
   "tailwindCSS.includeLanguages": {
     plaintext: "php",

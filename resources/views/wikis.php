@@ -81,7 +81,14 @@ include("layouts/head.php");
                             <span class="font-medium dark:text-white">
                                 Bonnie Green
                             </span>
+                            <div>
+                                <span>bev</span>
+                                <span>bev</span>
+                                <span>bev</span>
+                                <span>bev</span>
+                            </div>
                         </div>
+
                         <a href="#"
                             class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
                             Read more

@@ -11,7 +11,7 @@ include(__DIR__ . "/../layouts/head.php");
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Update User
+                        Update Wiki
                     </h1>
                     <form class="space-y-4 md:space-y-6" id="editWiki" enctype="multipart/form-data">
                         <input type="hidden" id="id" name="id" value="<?php echo $wiki['id']; ?>">
