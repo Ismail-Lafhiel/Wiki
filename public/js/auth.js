@@ -156,3 +156,28 @@ function signin() {
     });
   }
 }
+
+function signout() {
+  $.ajax({
+    url: "/logout",
+    type: "GET",
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      if (response.successMessage) {
+        $("#signin-message").html(
+          "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>User logged out</div>"
+        );
+        setTimeout(function () {
+          window.location.href = "/";
+          $("#signin-message").empty();
+          setTimeout(function () {}, 3000);
+        }, 3000);
+      }
+    },
+    error: function (xhr, status, error) {
+      // Handle errors
+      console.error(error);
+    },
+  });
+}

@@ -44,13 +44,20 @@ class AuthController extends Controller
         $user = $this->auth->authenticate($email, $password);
 
         if ($user) {
-            // session_start();
             $_SESSION['user'] = $user;
             echo json_encode(['successMessage' => 'Login successful']);
             // dump($_SESSION['user']);
         } else {
             echo json_encode(['errorMessage' => 'Invalid email or password']);
         }
+        header('Content-Type: application/json');
+    }
+
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        // echo json_encode(['successMessage' => 'User logged out']);
         header('Content-Type: application/json');
     }
 }

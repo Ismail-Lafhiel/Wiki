@@ -131,5 +131,7 @@
 </footer>
 <script src="../../../public/js/script.js"></script>
 <script src="../../../public/js/auth.js"></script>
+<script src="../../../node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>
+
 </html>

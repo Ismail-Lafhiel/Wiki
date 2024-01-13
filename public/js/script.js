@@ -695,9 +695,6 @@ function deleteCategory(categoryId) {
     });
 }
 // end Categories CRUD
-// document.addEventListener("DOMContentLoaded", function (event) {
-//   document.getElementById("defaultModalButton").click();
-// });
 
 // select multiple tags
 document.getElementById("tagInput").addEventListener("keypress", function (e) {
@@ -721,4 +718,8 @@ document.getElementById("tagInput").addEventListener("keypress", function (e) {
       this.value = "";
     }
   }
+});
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  document.getElementById("defaultModalButton").click();
 });

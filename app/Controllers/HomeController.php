@@ -10,4 +10,7 @@ class HomeController extends Controller
     public function wikis(){
         return $this->render('wikis');
     }
+    public function notAllowed(){
+        return $this->render('not_allowed');
+    }
 }
