@@ -60,15 +60,7 @@ class CategorieController extends Controller
 
     public function destroy($id)
     {
-        $result = $this->category->delete($id);
-        if ($result) {
-            $response = ['successMessage' => 'category deleted successfully'];
-        } else {
-            $response = ['errorMessage' => 'Failed to delete category'];
-        }
-
-        header('Content-Type: application/json');
-        echo json_encode($response);
-
+        $this->category->delete($id);
+        header('Location: /categories');
     }
 }

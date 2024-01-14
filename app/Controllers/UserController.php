@@ -61,15 +61,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $result = $this->user->delete($id);
-        if ($result) {
-            $response = ['successMessage' => 'User deleted successfully'];
-        } else {
-            $response = ['errorMessage' => 'Failed to delete user'];
-        }
-
-        header('Content-Type: application/json');
-        echo json_encode($response);
-
+        $this->user->delete($id);
+        header('Location: /users');
     }
 }

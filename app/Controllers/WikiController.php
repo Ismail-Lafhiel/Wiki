@@ -101,15 +101,9 @@ class WikiController extends Controller
 
     public function destroy($id)
     {
-        $result = $this->wiki->delete($id);
-        if ($result) {
-            $response = ['successMessage' => 'wiki deleted successfully'];
-        } else {
-            $response = ['errorMessage' => 'Failed to delete wiki'];
-        }
+        $this->wiki->delete($id);
+        header('Location: /wikis');
 
-        header('Content-Type: application/json');
-        echo json_encode($response);
     }
 
 

@@ -55,15 +55,9 @@ class TagController extends Controller
 
     public function destroy($id)
     {
-        $result = $this->tag->delete($id);
-        if ($result) {
-            $response = ['successMessage' => 'tag deleted successfully'];
-        } else {
-            $response = ['errorMessage' => 'Failed to delete tag'];
-        }
+        $this->tag->delete($id);
+        header('Location: /tags');
 
-        header('Content-Type: application/json');
-        echo json_encode($response);
 
     }
 }

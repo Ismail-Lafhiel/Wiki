@@ -86,55 +86,6 @@ function createUser() {
     },
   });
 }
-function deleteUser(userId) {
-  document
-    .querySelector('button[data-modal-toggle="deleteModal"][type="button"]')
-    .addEventListener("click", function () {
-      var formElement = document.getElementById("deleteUser");
-      var formData = new FormData(formElement);
-      var userId = getUserIdFromButton(); // Replace this with the actual method to get the user's ID from the button
-      console.log("Delete user function called with user ID:", userId);
-      $.ajax({
-        url: "/users/delete/" + userId,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(formData);
-          if (response.successMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>User deleted successfully.</div>"
-            );
-            setTimeout(function () {
-              window.location.href = "/users/";
-              $("#alertMessage").empty();
-              setTimeout(function () {}, 5000);
-            }, 3000);
-          } else if (response.errorMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>Failed to delete user.</div>"
-            );
-          }
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-        error: function (xhr, status, error) {
-          $("#alertMessage").html(
-            "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>An error occurred: " +
-              status +
-              " - " +
-              error +
-              "</div>"
-          );
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-      });
-    });
-}
 // end User CRUD
 // -------------------------------------------------------------- //
 // start Wiki CRUD
@@ -224,55 +175,6 @@ function createWiki() {
       }, 5000);
     },
   });
-}
-function deleteWiki(wikiId) {
-  document
-    .querySelector('button[data-modal-toggle="deleteModal"][type="button"]')
-    .addEventListener("click", function () {
-      var formElement = document.getElementById("deleteWiki");
-      var formData = new FormData(formElement);
-      var wikiId = getUserIdFromButton();
-      console.log("Delete wikis function called with wiki ID:", wikiId);
-      $.ajax({
-        url: "/wikis/delete/" + wikiId,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(formData);
-          if (response.successMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>Wiki deleted successfully.</div>"
-            );
-            setTimeout(function () {
-              window.location.href = "/wikis/";
-              $("#alertMessage").empty();
-              setTimeout(function () {}, 5000);
-            }, 3000);
-          } else if (response.errorMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>Failed to delete wiki.</div>"
-            );
-          }
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-        error: function (xhr, status, error) {
-          $("#alertMessage").html(
-            "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>An error occurred: " +
-              status +
-              " - " +
-              error +
-              "</div>"
-          );
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-      });
-    });
 }
 // end Wiki CRUD
 // -------------------------------------------------------------- //
@@ -364,55 +266,6 @@ function createTag() {
     },
   });
 }
-function deleteTag(tagId) {
-  document
-    .querySelector('button[data-modal-toggle="deleteModal"][type="button"]')
-    .addEventListener("click", function () {
-      var formElement = document.getElementById("deleteTag");
-      var formData = new FormData(formElement);
-      var tagId = getUserIdFromButton();
-      console.log("Delete tags function called with wiki ID:", tagId);
-      $.ajax({
-        url: "/tags/delete/" + tagId,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(formData);
-          if (response.successMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>Wiki deleted successfully.</div>"
-            );
-            setTimeout(function () {
-              window.location.href = "/tags/";
-              $("#alertMessage").empty();
-              setTimeout(function () {}, 5000);
-            }, 3000);
-          } else if (response.errorMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>Failed to delete wiki.</div>"
-            );
-          }
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-        error: function (xhr, status, error) {
-          $("#alertMessage").html(
-            "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>An error occurred: " +
-              status +
-              " - " +
-              error +
-              "</div>"
-          );
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-      });
-    });
-}
 // end Tags CRUD
 // -------------------------------------------------------------- //
 // start Wiki CRUD
@@ -503,55 +356,6 @@ function createWiki() {
     },
   });
 }
-function deleteWiki(wikiId) {
-  document
-    .querySelector('button[data-modal-toggle="deleteModal"][type="button"]')
-    .addEventListener("click", function () {
-      var formElement = document.getElementById("deleteWiki");
-      var formData = new FormData(formElement);
-      var wikiId = getUserIdFromButton();
-      console.log("Delete wikis function called with wiki ID:", wikiId);
-      $.ajax({
-        url: "/wikis/delete/" + wikiId,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(formData);
-          if (response.successMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>Wiki deleted successfully.</div>"
-            );
-            setTimeout(function () {
-              window.location.href = "/wikis/";
-              $("#alertMessage").empty();
-              setTimeout(function () {}, 5000);
-            }, 3000);
-          } else if (response.errorMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>Failed to delete wiki.</div>"
-            );
-          }
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-        error: function (xhr, status, error) {
-          $("#alertMessage").html(
-            "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>An error occurred: " +
-              status +
-              " - " +
-              error +
-              "</div>"
-          );
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-      });
-    });
-}
 // end Wiki CRUD
 // -------------------------------------------------------------- //
 // start Categories CRUD
@@ -641,58 +445,6 @@ function createCategory() {
       }, 5000);
     },
   });
-}
-function deleteCategory(categoryId) {
-  document
-    .querySelector('button[data-modal-toggle="deleteModal"][type="button"]')
-    .addEventListener("click", function () {
-      var formElement = document.getElementById("deleteCategory");
-      var formData = new FormData(formElement);
-      var categoryId = getUserIdFromButton();
-      console.log(
-        "Delete Categories function called with wiki ID:",
-        categoryId
-      );
-      $.ajax({
-        url: "/categories/delete/" + categoryId,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(formData);
-          if (response.successMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>Category deleted successfully.</div>"
-            );
-            setTimeout(function () {
-              window.location.href = "/categories/";
-              $("#alertMessage").empty();
-              setTimeout(function () {}, 5000);
-            }, 3000);
-          } else if (response.errorMessage) {
-            $("#alertMessage").html(
-              "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>Failed to delete ctegory.</div>"
-            );
-          }
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-        error: function (xhr, status, error) {
-          $("#alertMessage").html(
-            "<div class='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400' role='alert'>An error occurred: " +
-              status +
-              " - " +
-              error +
-              "</div>"
-          );
-          setTimeout(function () {
-            $("#alertMessage").empty();
-          }, 5000);
-        },
-      });
-    });
 }
 // end Categories CRUD
 

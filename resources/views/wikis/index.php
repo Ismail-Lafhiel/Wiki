@@ -191,11 +191,10 @@ include(__DIR__ . "/../layouts/head.php");
                                             </li>
                                         </ul>
                                         <div class="py-1">
-                                            <button id="deleteButton" data-modal-target="deleteModal"
-                                                data-modal-toggle="deleteModal"
+                                            <a href="/wikis/delete/<?php echo $wiki['id'] ?>" onclick="return confirm('Are you sure you want to delete this wiki')"
                                                 class="block w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                 Delete
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>
