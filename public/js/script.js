@@ -238,7 +238,7 @@ function createTag() {
           "<div class='p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400' role='alert'>Tag created successfully.</div>"
         );
         setTimeout(function () {
-          window.location.href = "/wikis/";
+          window.location.href = "/tags/";
           $("#alertMessage").empty();
           setTimeout(function () {}, 5000);
         }, 3000);

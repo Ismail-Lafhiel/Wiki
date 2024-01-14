@@ -14,10 +14,9 @@ class TagController extends Controller
 
     public function index()
     {
-        // $tags = $this->tag->all();
+        $tags = $this->tag->all();
 
-        // return $this->render('tags.index', ['tags' => $categories]);
-        return $this->render('tags.index');
+        return $this->render('tags.index', ['tags' => $tags]);
     }
     public function store($data)
     {
@@ -35,10 +34,10 @@ class TagController extends Controller
     }
     public function edit($id)
     {
-        // $category = $this->tag->find($id);
+        $tag = $this->tag->find($id);
 
-        return $this->render('tags.edit');
-        // return $this->render('tags.edit', ['tag' => $category]);
+        // return $this->render('tags.edit');
+        return $this->render('tags.edit', ['tag' => $tag]);
     }
     public function update($id, $data)
     {
@@ -57,7 +56,5 @@ class TagController extends Controller
     {
         $this->tag->delete($id);
         header('Location: /tags');
-
-
     }
 }

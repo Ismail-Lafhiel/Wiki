@@ -5,10 +5,8 @@ include("layouts/head.php");
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our
-                    Blog</h2>
-                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test
-                    assumptions and connect with the needs of your audience early and often.</p>
+                <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">All
+                    Wikis</h2>
             </div>
             <div class="grid gap-8 lg:grid-cols-2">
                 <?php foreach ($allWikis as $allWiki): ?>
@@ -46,7 +44,9 @@ include("layouts/head.php");
                                 <div>
                                     <?php foreach ($allWiki['tags'] as $tag): ?>
                                         <span
-                                            class="text-white bg-primary-700 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 font-normal rounded-full text-sm px-3.5 py-1.5 text-center mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-900"><?php echo($tag['tag_name']) ?></span>
+                                            class="text-white bg-primary-700 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 font-normal rounded-full text-sm px-3.5 py-1.5 text-center mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-900 mr-2">
+                                            <?php echo ($tag['tag_name']) ?>
+                                        </span>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

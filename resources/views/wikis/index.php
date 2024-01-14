@@ -147,16 +147,19 @@ include(__DIR__ . "/../layouts/head.php");
                                     <?php echo $wiki['content'] ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $wiki['categories']['category_name'] ?>
+                                    <?php echo $wiki['category_name'] ?>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <?php echo $wiki['users']['user_name'] ?>
+                                    <?php echo $wiki['user_name'] ?>
                                 </td>
                                 <td>
-                                    <?php foreach ($wiki['tags'] as $tag): ?>
+                                    <?php foreach ($wiki['tags'] as $index => $tag): ?>
                                         <span>
                                             <?php echo $tag['tag_name']; ?>
                                         </span>
+                                        <?php if ($index < count($wiki['tags']) - 1): ?>
+                                            <span>-</span>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </td>
                                 <td class="px-4 py-3">
@@ -191,7 +194,8 @@ include(__DIR__ . "/../layouts/head.php");
                                             </li>
                                         </ul>
                                         <div class="py-1">
-                                            <a href="/wikis/delete/<?php echo $wiki['id'] ?>" onclick="return confirm('Are you sure you want to delete this wiki')"
+                                            <a href="/wikis/delete/<?php echo $wiki['id'] ?>"
+                                                onclick="return confirm('Are you sure you want to delete this wiki')"
                                                 class="block w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                 Delete
                                             </a>
