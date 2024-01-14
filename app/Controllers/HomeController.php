@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+
 use App\Models\Wiki;
 
 
@@ -24,7 +25,15 @@ class HomeController extends Controller
     public function wikis()
     {
         $Wiki = new Wiki;
-        $allWikis = $Wiki->allWithUserCategoryAndTags();
+
+        if (isset($_GET['searchTerm'])) {
+            $searchTerm = $_GET['searchTerm'];
+            $wikis = $Wiki->searchWiki($searchTerm);
+            header('Content-Type: application/json');
+            echo json_encode($wikis);
+        } else {
+            $allWikis = $Wiki->allWithUserCategoryAndTags();
+        }
         return $this->render('wikis', ['allWikis' => $allWikis]);
     }
     public function editProfile()

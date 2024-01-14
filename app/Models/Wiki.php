@@ -37,6 +37,11 @@ class Wiki extends Model
     {
         return (new Tag())->all();
     }
+    public function getTagsForWiki($wikiId)
+    {
+        $tags = $this->tags($wikiId);
+        return $tags;
+    }
     public function allWithUserCategoryAndTags()
     {
         $stmt = $this->db->query("SELECT wikis.*, users.user_name AS user_name, categories.category_name AS category_name
@@ -52,12 +57,6 @@ class Wiki extends Model
         }
         return $wikis;
     }
-
-    public function getTagsForWiki($wikiId)
-    {
-        $tags = $this->tags($wikiId);
-        return $tags;
-    }
     public function latestWikis($limit = 6)
     {
         $stmt = $this->db->query("SELECT wikis.*, categories.category_name, users.user_name, users.profile_path 
@@ -68,5 +67,26 @@ class Wiki extends Model
         LIMIT $limit");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function searchWiki($searchTerm)
+{
+    $query = "SELECT wikis.*, users.user_name AS user_name, categories.category_name AS category_name
+              FROM wikis 
+              INNER JOIN users ON wikis.user_id = users.id 
+              INNER JOIN categories ON wikis.category_id = categories.id
+              WHERE wikis.title LIKE :searchTerm OR categories.category_name LIKE :searchTerm";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
+    $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    foreach ($results as &$wiki) {
+        $tags = $this->getTagsForWiki($wiki['id']);
+        $wiki['tags'] = $tags;
+    }
+
+    return $results;
+}
+
 
 }
