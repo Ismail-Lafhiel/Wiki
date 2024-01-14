@@ -13,7 +13,7 @@
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="/" class="flex items-center">
-                <img src="../../../public/assets/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                <img src="../../../public/assets/logo.png" class="mr-3 h-6 sm:h-9" alt="Logo" />
             </a>
             <?php if (isset($_SESSION['user']['role'])): ?>
                 <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -52,9 +52,9 @@
                                     profile</a>
                             </li>
                             <li>
-                                <button type="signout" onclick="signout()"
+                                <a href="/logout"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                                    out</button>
+                                    out</a>
                             </li>
                         </ul>
                     </div>

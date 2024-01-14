@@ -39,25 +39,34 @@ class Wiki extends Model
     }
     public function allWithUserCategoryAndTags()
     {
-        $wikis = $this->all();
+        $stmt = $this->db->query("SELECT wikis.*, users.user_name AS user_name, categories.category_name AS category_name
+        FROM wikis 
+        INNER JOIN users ON wikis.user_id = users.id 
+        INNER JOIN categories ON wikis.category_id = categories.id");
+
+        $wikis = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach ($wikis as &$wiki) {
-            $user = (new User())->find($wiki['user_id']);
-            $wiki['users'] = $user;
-
-            $category = (new Categorie())->find($wiki['category_id']);
-            $wiki['categories'] = $category;
-
             $tags = $this->tags($wiki['id']);
             $wiki['tags'] = $tags;
         }
         return $wikis;
     }
+
     public function getTagsForWiki($wikiId)
     {
         $tags = $this->tags($wikiId);
         return $tags;
     }
-
+    public function latestWikis($limit = 6)
+    {
+        $stmt = $this->db->query("SELECT wikis.*, categories.category_name, users.user_name, users.profile_path 
+        FROM wikis 
+        INNER JOIN categories ON wikis.category_id = categories.id 
+        INNER JOIN users ON wikis.user_id = users.id 
+        ORDER BY wikis.created_at DESC 
+        LIMIT $limit");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
 }

@@ -14,7 +14,9 @@ $router = new Router($_SERVER['REQUEST_URI']);
 
 // home routes 
 $router->get('/', [HomeController::class, 'index']);
+$router->get('/dashboard', [HomeController::class, 'dashboard']);
 $router->get('/wikis/show-all', [HomeController::class, 'wikis']);
+$router->get('/edit-profile/{id}', [HomeController::class, 'editProfile']);
 // auth routes 
 $router->get('/signin', [AuthController::class, 'signin']);
 $router->get('/signup', [AuthController::class, 'signup']);

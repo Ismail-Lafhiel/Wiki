@@ -16,8 +16,11 @@ class WikiController extends Controller
     public function index()
     {
         $wikis = $this->wiki->allWithUserCategoryAndTags();
-        // dump($wikis);
         return $this->render('wikis.index', ['wikis' => $wikis]);
+    }
+    public function latestWikis()
+    {
+        return $this->wiki->latestWikis(6);
     }
     public function show($id)
     {

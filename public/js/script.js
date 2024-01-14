@@ -3,7 +3,6 @@ function updateUser() {
   var formElement = document.getElementById("editUser");
   var formData = new FormData(formElement);
   var userId = $("#id").val();
-
   $.ajax({
     url: "/users/update/" + userId,
     type: "POST",

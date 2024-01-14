@@ -57,7 +57,6 @@ class AuthController extends Controller
     {
         session_unset();
         session_destroy();
-        // echo json_encode(['successMessage' => 'User logged out']);
-        header('Content-Type: application/json');
+        header("Location: /");
     }
 }

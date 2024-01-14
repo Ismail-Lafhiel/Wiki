@@ -18,6 +18,11 @@ class CategorieController extends Controller
 
         return $this->render('categories.index', ['categories' => $categories]);
     }
+    public function latest()
+    {
+        return $this->category->latestCategories(5);
+    }
+
 
     public function show($id)
     {
