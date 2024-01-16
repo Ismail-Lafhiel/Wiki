@@ -69,24 +69,38 @@ class Wiki extends Model
     }
 
     public function searchWiki($searchTerm)
-{
-    $query = "SELECT wikis.*, users.user_name AS user_name, categories.category_name AS category_name
+    {
+        $query = "SELECT wikis.*, users.user_name AS user_name, categories.category_name AS category_name
               FROM wikis 
               INNER JOIN users ON wikis.user_id = users.id 
               INNER JOIN categories ON wikis.category_id = categories.id
               WHERE wikis.title LIKE :searchTerm OR categories.category_name LIKE :searchTerm";
 
-    $stmt = $this->db->prepare($query);
-    $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
-    $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-    foreach ($results as &$wiki) {
-        $tags = $this->getTagsForWiki($wiki['id']);
-        $wiki['tags'] = $tags;
+        foreach ($results as &$wiki) {
+            $tags = $this->getTagsForWiki($wiki['id']);
+            $wiki['tags'] = $tags;
+        }
+
+        return $results;
     }
+    public function countWikis()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) as count FROM wikis");
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
+    public function countWikisPerUser($id)
+    {
+        $query = "SELECT COUNT(*) as count FROM wikis WHERE user_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-    return $results;
-}
-
+        return $result['count'];
+    }
 
 }

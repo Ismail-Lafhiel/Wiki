@@ -3,7 +3,7 @@ $(document).ready(function () {
     var searchTerm = $(this).val();
     $.ajax({
       url: "/wikis/show-all",
-      type: "GET",
+      type: "POST",
       data: { searchTerm: searchTerm },
       success: function (data) {
         displaySearchResults(data);

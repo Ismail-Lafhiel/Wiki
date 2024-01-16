@@ -11,6 +11,10 @@ class Tag extends Model
     {
         return $this->belongsToMany(Wiki::class, 'wikitags', 'tag_id', 'wiki_id', $id);
     }
-
-
+    public function countTags()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) as count FROM tags");
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
 }

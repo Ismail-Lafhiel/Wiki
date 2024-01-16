@@ -43,8 +43,13 @@
                         </div>
                         <ul class="py-2" aria-labelledby="user-menu-button">
                             <li>
-                                <a href="/dashboard"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                                <?php if (isset($_SESSION['user']['role']) == 0): ?>
+                                    <a href="/dashboard"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                                <?php else: ?>
+                                    <a href="/users/show/<?php echo $_SESSION['user']['id'] ?>"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+                                <?php endif ?>
                             </li>
                             <li>
                                 <a href="/edit-profile/<?php echo $_SESSION['user']['id'] ?>"

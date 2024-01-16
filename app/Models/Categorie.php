@@ -17,4 +17,10 @@ class Categorie extends Model
         $stmt = $this->db->query("SELECT * FROM $this->table ORDER BY created_at DESC LIMIT $limit");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function countCategories()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) as count FROM categories");
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
 }

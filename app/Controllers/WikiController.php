@@ -31,13 +31,11 @@ class WikiController extends Controller
 
         $category = (new Categorie())->find($wiki['category_id']);
         $wiki['category_name'] = $category['category_name'];
-
         $tags = $this->wiki->getTagsForWiki($id);
-
         $wiki['tags'] = $tags;
-        dump($wiki);
 
-        return $this->render('wikis.show', ['wiki' => $wiki]);
+        $wikisCount = $this->wiki->countWikisPerUser($user['id']);
+        return $this->render('wikis.show', ["wiki" => $wiki, "wikisCount"=>$wikisCount]);
     }
 
     public function add()

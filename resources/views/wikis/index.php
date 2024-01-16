@@ -1,4 +1,5 @@
 <?php
+if (isset($_SESSION['user']) && $_SESSION['user'] == 0) {
 include(__DIR__ . "/../layouts/head.php");
 ?>
 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
@@ -212,4 +213,7 @@ include(__DIR__ . "/../layouts/head.php");
 </section>
 <?php
 include(__DIR__ . "/../layouts/footer.php");
+} else {
+    header("Location: /not-allowed");
+}
 ?>

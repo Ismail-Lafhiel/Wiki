@@ -1,4 +1,7 @@
 <?php
+if (isset($_SESSION['user'])){
+    header("Location: /");
+}else{
 include(__DIR__ . "/../layouts/head.php");
 ?>
 <section class="bg-gray-50 dark:bg-gray-900 my-10">
@@ -68,4 +71,5 @@ include(__DIR__ . "/../layouts/head.php");
 </section>
 <?php
 include(__DIR__ . "/../layouts/footer.php");
+}
 ?>
